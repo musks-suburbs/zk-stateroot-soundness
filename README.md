@@ -73,9 +73,20 @@ Increase timeout for slow providers:
 🚨 UNSOUND — completed in 1.84s
 
 ## Notes
-- **Why this matters for zk:** Verifiers and bridges assume an unambiguous L1/L2 state; header drift breaks these assumptions and can invalidate proofs or delay finality.  
-- **Reorg awareness:** Short-lived reorgs may appear as broken parent links. Retry later or restrict to finalized blocks where applicable.  
-- **Stride trade-off:** Smaller `--step` = higher precision (more RPC calls). Larger `--step` = faster checks.  
-- **Provider differences:** Some nodes serve slightly stale data under load; this tool helps spot those discrepancies quickly.  
-- **Archive depth:** Historical ranges require providers with sufficient history for `eth_getBlockByNumber`.  
-- **Automation tip:** Run hourly with `--json` and alert if status is UNSOUND or if mismatches exceed a threshold.  
+- **Data Source Integrity:** Ensures both RPCs agree on the same canonical chain state.  
+- **ZK Security Impact:** Diverging state roots across sources can invalidate zk proofs or bridge verifications.  
+- **Reorg Detection:** Broken parent chains reveal reorg windows; such ranges should be avoided in zk commitments.  
+- **Sampling Strategy:** Using `--step` reduces load while maintaining accuracy for large ranges.  
+- **RPC Discrepancy Causes:** Mismatches may result from archive lag, pending reorgs, or network partitions.  
+- **Automation:** Integrate into CI/CD to continuously monitor RPC consistency.  
+- **Performance:** For thousands of blocks, use higher `--step` to balance speed and depth.  
+- **JSON Reporting:** Ideal for dashboards that visualize drift and mismatches.  
+- **Exit Codes:**  
+  `0` → All headers matched and linked properly.  
+  `2` → At least one mismatch or broken link detected.  
+- **Security Best Practice:**  
+  Run this check before zk proof generation or L2 settlement operations to ensure all inputs are canonical.  
+- **Cross-RPC Testing:**  
+  Useful for comparing Infura, Alchemy, LlamaRPC, or self-hosted nodes for drift detection.  
+- **Validation Tip:**  
+  When an UNSOUND result appears, re-run after 1–2 confirmations to rule out temporary reorgs. 
