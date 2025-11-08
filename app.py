@@ -120,6 +120,11 @@ def main() -> None:
         except Exception as e:
             print(f"⚠️  Block {n}: fetch error: {e}")
             continue
+    # ✅ New: Show timestamp of the block in UTC
+        from datetime import datetime
+        ts = datetime.utcfromtimestamp(ha["timestamp"]).isoformat() + "Z"
+        print(f"   🕒 Block timestamp (UTC): {ts}")
+
 
         headers_a.append(ha)
         headers_b.append(hb)
