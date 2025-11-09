@@ -10,11 +10,11 @@
 It’s a fast way to detect **header divergence**, **reorg windows**, or **provider drift** — critical for zk systems (Aztec, Zama) that assume consistent L1/L2 inputs for proof soundness and bridge safety.
 
 ## Features
-- 📦 Samples headers at a configurable stride (e.g., every block or every N blocks)  
-- 🔁 Verifies parent link continuity — highlights potential reorgs per RPC  
-- 🧮 Reports any per-field mismatches (hash/stateRoot/txRoot/receiptsRoot)  
-- 🧾 JSON output for CI dashboards and integrity monitoring  
-- 🧭 Works with any EVM-compatible JSON-RPC endpoint
+- Samples headers at a configurable stride (e.g., every block or every N blocks)  
+- Verifies parent link continuity — highlights potential reorgs per RPC  
+- Reports any per-field mismatches (hash/stateRoot/txRoot/receiptsRoot)  
+- JSON output for CI dashboards and integrity monitoring  
+- Works with any EVM-compatible JSON-RPC endpoint
 
 ## Installation
 1) Python 3.9+  
